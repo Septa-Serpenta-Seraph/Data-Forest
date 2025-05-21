@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Tree</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Data Tree</h1>
+    <div style="margin-bottom: 15px;">
+        <button id="addNewTreeButton" style="padding: 8px 15px; font-size: 1em; cursor: pointer;">Add New Root Tree</button>
+        <label for="sortOptions" style="margin-left: 20px; font-size: 1em;">Sort by:</label>
+        <select id="sortOptions" style="padding: 8px; font-size: 0.9em; margin-left: 5px;">
+            <option value="" disabled selected>Select Sort...</option>
+            <option value="name_asc">Name (A-Z)</option>
+            <option value="name_desc">Name (Z-A)</option>
+            <option value="type_then_name">Type (Folders First)</option>
+        </select>
+    </div>
+    <div id="fileTreeContainer">
+        <!-- Tree will be rendered here by JavaScript -->
+    </div>
+    <script src="script.js"></script>
+
+    <!-- Dedicated Viewer Panel (Initially Hidden) -->
+    <div id="dedicatedViewerPanel" style="display: none;">
+        <div class="viewer-panel-header">
+            <span id="viewerPanelFileName">File Name</span>
+            <button id="viewerPanelCloseButton" title="Close Viewer">❌</button>
+        </div>
+        <pre id="viewerPanelContent"></pre>
+        <div class="viewer-panel-footer">
+            <button id="viewerPanelCopyButton">Copy Content</button>
+            <button id="viewerPanelDownloadButton">Download File</button>
+        </div>
+    </div>
+</body>
+</html>

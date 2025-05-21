@@ -1,0 +1,324 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#fileTreeContainer {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Basic tree styling */
+#fileTreeContainer ul {
+    list-style-type: none;
+    padding-left: 20px; /* Indentation for nesting */
+    position: relative; /* For connector lines */
+}
+
+/* Vertical connector line for UL */
+#fileTreeContainer ul::before {
+    content: '';
+    position: absolute;
+    left: 10px; /* Adjust to align with node icons/text */
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #aaa; /* Branch color */
+}
+
+#fileTreeContainer li {
+    padding: 3px 0; /* Slightly adjust padding */
+    position: relative;
+}
+
+/* Horizontal connector line for LI */
+#fileTreeContainer li::before {
+    content: '';
+    position: absolute;
+    left: -10px; /* Extends from the parent UL's vertical line */
+    top: 12px;  /* Vertically center with node text/icon */
+    width: 10px;
+    height: 1px;
+    background-color: #aaa; /* Branch color */
+}
+
+/* Remove top part of vertical line for the first li in a ul */
+#fileTreeContainer ul > li:first-child::after {
+    content: '';
+    position: absolute;
+    left: -10px; /* Aligns with li::before */
+    top: 0;
+    width: 1px; /* Width of the vertical line */
+    height: 12px; /* Height to cover the top part */
+    background-color: #fff; /* Match container background to "erase" line */
+}
+
+
+/* Styling for nodes (spans inside li) */
+#fileTreeContainer .tree-node {
+    cursor: pointer;
+    padding-left: 25px; /* Space for icon */
+    display: inline-block; /* Allows for consistent icon placement */
+    background-color: #fff; /* Ensure node text is above connector lines */
+    position: relative; /* For z-indexing if needed */
+    z-index: 1;
+}
+
+#fileTreeContainer .tree-node:hover {
+    background-color: #e9f5ff;
+}
+
+/* Icons using ::before pseudo-element - keeping existing icons for now */
+#fileTreeContainer .folder-node::before {
+    content: '🌳'; /* Changed to a tree emoji for folder */
+    position: absolute;
+    left: 0;
+    width: 20px; /* Ensure space for icon */
+    display: inline-block;
+    text-align: center;
+}
+
+#fileTreeContainer .folder-node.open::before {
+    content: '🍂'; /* Changed to a leaf emoji for open folder */
+}
+
+#fileTreeContainer .file-node::before {
+    content: '🍃'; /* Changed to a leaf emoji for file */
+    position: absolute;
+    left: 0;
+    width: 20px; /* Ensure space for icon */
+    display: inline-block;
+    text-align: center;
+}
+
+/* Hide children of closed folders */
+#fileTreeContainer .folder-node.closed + ul {
+    display: none;
+}
+
+/* Styling for the add node button */
+#fileTreeContainer .add-node-button {
+    color: #007bff; /* A distinct color */
+    font-weight: bold;
+    margin-left: 8px; /* Space from the folder name */
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+#fileTreeContainer .add-node-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Styling for the edit node button */
+#fileTreeContainer .edit-node-button {
+    color: #28a745; /* Green color for edit */
+    font-weight: bold;
+    margin-left: 8px;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+#fileTreeContainer .edit-node-button:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Styling for the editor container */
+.editor-container {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.editor-container textarea {
+    width: calc(100% - 16px); /* Adjust for padding */
+    min-height: 60px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 5px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.editor-container button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.editor-container button:first-of-type { /* Save button */
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    margin-right: 5px;
+}
+
+.editor-container button:last-of-type { /* Cancel button */
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+/* Dedicated Viewer Panel Styles */
+#dedicatedViewerPanel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 800px;
+    max-height: 80vh;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    z-index: 1000; /* Ensure it's on top */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack header, content, footer vertically */
+}
+
+.viewer-panel-header {
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#viewerPanelFileName {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#viewerPanelCloseButton {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#viewerPanelContent { /* This is the <pre> tag */
+    padding: 15px;
+    overflow: auto; /* Scroll for long content */
+    flex-grow: 1; /* Allow content to take available space */
+    white-space: pre-wrap; /* Wrap long lines but preserve formatting */
+    word-break: break-all; /* Break long words if necessary */
+    background-color: #fdfdfd;
+}
+
+.viewer-panel-footer {
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #eee;
+    text-align: right;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.viewer-panel-footer button {
+    margin-left: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* Placeholder for Inline Preview Container */
+.inline-preview-container {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px dashed #ddd;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.inline-preview-content {
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 100px; /* Limit height of snippet */
+    overflow-y: auto; /* Scroll if snippet is too long */
+    margin-bottom: 8px;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #eee;
+}
+
+.inline-preview-actions span,
+.inline-preview-actions .preview-action-icon { /* General class for icons */
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 0.9em; /* Adjust icon size if using text/emoji */
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+.inline-preview-actions .preview-action-icon:hover {
+    background-color: #eee;
+}
+
+/* Styling for the delete node button */
+#fileTreeContainer .delete-node-button {
+    color: #dc3545; /* Red color for delete */
+    font-weight: bold;
+    margin-left: 8px;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+#fileTreeContainer .delete-node-button:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Drag and Drop Styles */
+#fileTreeContainer .dragging {
+    opacity: 0.5;
+    background-color: #f0f8ff; /* AliceBlue, a light blue */
+}
+
+#fileTreeContainer .drag-over-target {
+    /* Style for when an item is dragged over a valid folder drop target */
+    background-color: #d4edda; /* Light green to indicate valid drop */
+    outline: 2px dashed #28a745; /* Green dashed outline */
+}
+
+#fileTreeContainer .drag-over-target > .tree-node {
+    /* Ensure the text part of the node also gets the background if it has its own */
+    background-color: #d4edda !important; 
+}
+
+/* Drop indicator for reordering */
+.drop-indicator {
+    position: absolute;
+    height: 2px;
+    background-color: #007bff; /* Blue line */
+    width: 100%; /* Span the width of the li */
+    z-index: 10; /* Ensure it's visible */
+    pointer-events: none; /* So it doesn't interfere with drop events */
+}
+
+.drop-indicator.top {
+    top: -1px; /* Position above the li */
+}
+
+.drop-indicator.bottom {
+    bottom: -1px; /* Position below the li */
+}
