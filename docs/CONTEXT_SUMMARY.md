@@ -60,9 +60,9 @@ Phase 2 focused on adding rich client-side interactions to the 2D tree. All plan
 
 ---
 
-## 2025-05-21: Phase 3 Planning & Initial Setup
+## 2025-05-22: Phase 3 Backend Foundation & Initial gRPC Communication
 
-**Objective:** Define core architecture for Phase 3 and prepare the development environment.
+**Objective:** Define core architecture for Phase 3, prepare the development environment, and establish initial inter-service communication.
 
 *   **Architectural Decisions for Phase 3 Backend:**
     *   **Overall Architecture:** Polyglot (Hybrid) approach.
@@ -80,10 +80,16 @@ Phase 2 focused on adding rich client-side interactions to the 2D tree. All plan
     *   **Python/FastAPI "Hello World" Service:** Basic FastAPI HTTP service (`python_api`) created with virtual environment, dependencies installed, and confirmed running via Uvicorn.
     *   **Drag-and-Drop Debugging (Frontend):** Extensive logging added to `script.js`. Further direct investigation deferred.
 
+*   **gRPC "Hello World" Communication (Completed):**
+    *   Defined a simple `Greeter` service contract using Protocol Buffers (`greeter.proto`).
+    *   Generated gRPC client/server code for both Go and Python.
+    *   Implemented a gRPC server in the Python/FastAPI service.
+    *   Implemented a gRPC client in the Go service.
+    *   Successfully tested inter-service communication: Go service called Python service via gRPC.
+
 *   **Next Immediate Steps for Phase 3 Implementation:**
-    *   Define a simple service contract using Protocol Buffers (`.proto` file).
-    *   Generate gRPC client/server code for both Go and Python services from the `.proto` file.
-    *   Implement a basic gRPC client in the Go service to call the Python service.
-    *   Implement a basic gRPC server in the Python service to handle the call from Go.
-    *   Test inter-service communication.
+    *   Design and define more meaningful gRPC services and messages for core Data Forest operations (e.g., node creation, querying, content management).
+    *   Implement these gRPC services in the appropriate backend (Go or Python).
+    *   Begin integrating backend functionality with the Neo4j database.
+    *   Start planning how the frontend will interact with the new backend APIs.
 ---
