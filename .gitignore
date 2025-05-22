@@ -44,3 +44,6 @@ vendor/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local Database Data (Do not commit)
+neo4j_data/
