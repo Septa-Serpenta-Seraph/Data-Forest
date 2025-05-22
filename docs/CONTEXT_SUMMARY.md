@@ -59,3 +59,26 @@ Phase 2 focused on adding rich client-side interactions to the 2D tree. All plan
 *   Begin planning for **Phase 3: API Integration & "Data Forest" Backend**, which will involve introducing server-side logic, a database for persistence, and an API.
 
 ---
+
+## 2025-05-21: Phase 3 Planning & Initial Setup
+
+**Objective:** Define core architecture for Phase 3 and prepare the development environment.
+
+*   **Architectural Decisions for Phase 3 Backend:**
+    *   **Overall Architecture:** Polyglot (Hybrid) approach.
+    *   **Core Services (Networking, Concurrency, Mycelial Network Logic):** To be implemented in **Go**.
+    *   **LLM/Agent API Layer (Tasking, Agent Management, UI-facing API):** To be implemented in **Python (FastAPI)**.
+    *   **Database:** **Neo4j (Graph Database)** selected for its suitability in modeling complex relationships (Mycelial Network, agent connections, etc.).
+    *   **Inter-Service Communication:** Planned to primarily use **gRPC**, potentially supplemented by Message Queues (e.g., NATS, RabbitMQ).
+
+*   **Development Environment & Project Setup Progress:**
+    *   **Version Control:** Project initialized as a Git repository and pushed to GitHub (`https://github.com/Septa-Serpenta-Seraph/Data-Forest`).
+    *   **Project Structure:** New directory structure implemented to separate `frontend`, `backend` (with `go_services` and `python_api` subdirs), `docs`, and `scripts`. Existing files moved accordingly. `.gitignore` and top-level `README.md` created.
+    *   **Docker Environment:** Docker Desktop successfully installed and confirmed operational (WSL 2 backend, `hello-world` test successful). Ready for Neo4j container setup.
+    *   **Drag-and-Drop Debugging (Frontend):** Extensive logging added to `script.js` for D&D functions. Further direct investigation of D&D bugs deferred to prioritize Phase 3 backend development.
+
+*   **Next Immediate Steps for Phase 3 Implementation:**
+    *   Set up Neo4j database using Docker.
+    *   Begin scaffolding basic "Hello World" Go and Python/FastAPI services.
+    *   Establish initial communication tests between backend services.
+---

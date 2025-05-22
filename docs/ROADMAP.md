@@ -49,6 +49,11 @@
 ## Phase 3: API Integration & "Data Forest" Backend (Future Full-Stack Vision)
 *   **Objective:** Evolve the application into a persistent, multi-user system with API capabilities for LLM and external integrations, supporting the 2D tree view.
 *   **Key Components:** Backend Server, Database, RESTful/GraphQL API, Real-time Communication (WebSockets), LLM Integration capabilities.
+*   **Selected Technology Stack (as of 2025-05-21):**
+    *   **Core Services (Networking, Concurrency, Mycelial Network Logic):** Go
+    *   **LLM/Agent API Layer (Tasking, Agent Management, UI-facing API):** Python (FastAPI)
+    *   **Database:** Neo4j (Graph Database)
+    *   **Inter-Service Communication:** Primarily gRPC, potentially Message Queues (e.g., NATS, RabbitMQ).
 
 ## Phase 4: 3D Navigable Data Forest (Ultimate Vision)
 *   **Objective:** Transform the "Data Forest" into an immersive, navigable 3D environment.
